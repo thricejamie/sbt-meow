@@ -16,7 +16,7 @@ object SbtMeowPlugin extends AutoPlugin {
 
 		val start = now
   	Meowifier.meow
-  	state.log.info("Image fetch took " + (now - start) + "ms")
+  	state.log.debug("Image fetch took " + (now - start) + "ms")
 
   	state.log.info("meow.")
   	state

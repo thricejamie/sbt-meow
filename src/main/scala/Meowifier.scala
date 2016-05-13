@@ -11,16 +11,20 @@ import java.io.ByteArrayInputStream
 
 object Meowifier {
 
-  def meow = {
-    val image = getRandomCatImage
+  def meow(apiKey: Option[String]) = {
+    val image = getRandomCatImage(apiKey)
     val scaled = scaledImage(image)
     val textified = textify(scaled)
 
     println(textified)
   }
 
-  def getRandomCatImage: BufferedImage = {
-    val requestUrl = url("http://thecatapi.com/api/images/get?type=jpg")
+  def getRandomCatImage(apiKey: Option[String]): BufferedImage = {
+    var apiKeyGetParameter = apiKey match {
+      case Some(key) => s"&api_key=$key"
+      case _ => ""
+    }
+    val requestUrl = url(s"http://thecatapi.com/api/images/get?type=jpg${apiKeyGetParameter}")
     val request = Http.configure(_ setFollowRedirects true)(requestUrl OK as.Bytes)
     val bytes = request()
     ImageIO.read(new ByteArrayInputStream(bytes))

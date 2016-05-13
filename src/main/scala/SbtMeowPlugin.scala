@@ -12,13 +12,18 @@ object SbtMeowPlugin extends AutoPlugin {
   lazy val meowCommand = Command.command("meow")(doMeow)
 
   def doMeow(state: State): State = {
-    state.log.info("Fetching random cat image...")
+    state.log.info("(^._.^)ﾉ Fetching random cat image...")
 
-    val start = now
-    Meowifier.meow
-    state.log.debug("Image fetch took " + (now - start) + "ms")
+    try {
+      val start = now
+      Meowifier.meow
+      state.log.debug(s"Image fetch took ${(now - start)}ms")
+      
+      state.log.info("(^._.^)ﾉ meow.")
+    } catch {
+      case t: Throwable => state.log.warn(s"(^._.^)ﾉ Can not currently meow: ${t.getMessage}")
+    }
 
-    state.log.info("meow.")
     state
   }
 }

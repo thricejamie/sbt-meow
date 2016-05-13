@@ -6,7 +6,7 @@ name := "sbt-meow"
 
 organization := "com.37pieces"
 
-version := "0.2"
+version := "0.3"
 
 scalaVersion := "2.10.4"
 
